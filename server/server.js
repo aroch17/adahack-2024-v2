@@ -23,8 +23,8 @@ app.get('/buy', async (req, res) => {
 
 app.get('/place', async (req, res) => {
     cuisine = "chinese";
-    lat = 37.4352
-    long = -122.9087
+    lat = req.body.lat
+    long = req.body.long
     price = ['PRICE_LEVEL_INEXPENSIVE'];
     distance = 10;
 
