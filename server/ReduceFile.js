@@ -1,31 +1,64 @@
 
-input_json_file = {};
+input_json_file = [{
+    cuisine: "x",
+    price: 0,
+    distance: 3
+  },
+  {
+    cuisine: "z",
+    price: 3,
+    distance: 3
+  },
+  {
+    cuisine: "y",
+    price: 0,
+    distance: 3
+  },
+];
   
-const cuisine = findMostCommonCuisine(input_json_file);
-const price = 0;
-const distance = 0;
 
-
-
-
-
-
-
-
-  // Function to find the most common cuisine
-function findMostCommonCuisine(data) {
-    const cuisineCounts = data.people.reduce((acc, person) => {
-      const { cuisine } = person;
-      acc[cuisine] = (acc[cuisine] || 0) + 1;
-      return acc;
-    }, {});
-  
-    // Convert the counts object into an array of [cuisine, count] pairs and find the most common
-    const mostCommonCuisine = Object.entries(cuisineCounts).reduce((acc, entry) => entry[1] > acc[1] ? entry : acc);
-  
-    return mostCommonCuisine[0]; // Return the cuisine name
+var countPropertyValues = {};
+input_json_file.forEach(function(obj) {
+  if (countPropertyValues.hasOwnProperty(obj.cuisine)) {
+    countPropertyValues[obj.cuisine]++;
+  } else {
+    countPropertyValues[obj.cuisine] = 1;
   }
+});
 
+
+var maxPropertyOccurence=0;
+var maxPropertyValue;
+
+for(var property in countPropertyValues){
+
+    if(countPropertyValues[property]>maxPropertyOccurence){
+      maxPropertyOccurence=countPropertyValues[property];
+      maxPropertyValue=property;
+    }
+}
+
+console.log(maxPropertyValue);
+const cuisine = maxPropertyValue;
+
+
+var priceSum = 0;
+var distanceSum = 0;
+
+input_json_file.forEach(function(obj) {
+      priceSum += obj.price;
+      distanceSum += obj.distance
+  });
+
+console.log(priceSum);
+console.log(distanceSum);
+
+const distance = distanceSum/input_json_file.length;
+const priceNum = Math.round(priceSum/input_json_file.length);
+const price = ["PRICE_LEVEL_INEXPENSIVE", "PRICE_LEVEL_MODERATE", "PRICE_LEVEL_EXPENSIVE"][priceNum-1];
+
+console.log(distance);
+console.log(price);
 
 
 
